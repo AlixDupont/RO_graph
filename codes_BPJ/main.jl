@@ -72,6 +72,8 @@ categ_other_filename = "data/alr21--categNum2Name--enwiki-20071018.txt"
 # println(d)
 # println(e)
 
+# PageRank(filename, 0.15, 50);
+
 # println("terminé")
 # countlines(filename)
 

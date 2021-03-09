@@ -110,21 +110,22 @@ function PageRank(fichier, alpha, t)
     real_nodes = ifelse.(info .>= 1, 1, 0)
     real_nodes /= sum(real_nodes) # remplace le I
     P = real_nodes
-    # oldP = zeros(length(P))
-    # variations = zeros(t)
+    oldP = zeros(length(P))
+    variations = zeros(t)
     for time in 1:t
         P = multiplication(Tind, Tv, m, P, n) # fait la multiplication entre une liste de coordonnées et un vecteur
         P = (1 - alpha) * P + alpha * real_nodes
         P += real_nodes * (1 - sum(P))/n
-        # valeur = log(norm(P - oldP))
+        valeur = log(norm(P - oldP))
         println("itération $time")
-        # println("itération $time, value = $valeur")
-        # variations[time] = log10(norm(P - oldP))
-        # oldP = P
+        println("itération $time, value = $valeur")
+        variations[time] = log10(norm(P - oldP))
+        oldP = P
     end
     println(maximum(P))
     println(std(P))
-    # display(plot([i for i in 1:t], variations, label = "logarithme de la norme de la variation"))
+    display(plot([i for i in 1:t], variations, label = "logarithme de la norme de la variation"))
+    png("norme_variation.png")
     return P
 end
 
@@ -265,9 +266,11 @@ function courbes(fichier, list_alpha, t)
     nb_trucs = length(list_alpha)
 
     real_nodes = ifelse.(info .>= 1, 1, 0)
+    println("sum real nodes = $(sum(real_nodes)) ")
     real_nodes /= sum(real_nodes) # remplace le I
     Values = zeros(n, nb_trucs)
-
+    println("n = $n")
+    println("m = $m")
     for a in 1:nb_trucs
         P = real_nodes
         alpha = list_alpha[a]
