@@ -194,7 +194,7 @@ function density_prefix(fichier, ordre_noeud, tri_noeud, informations_density)
 
         # edge density du sous-graphe actuel (distinction de cas car on ne peut pas diviser par 0)
         if i == 1
-            liste_ed[i] == 0
+            liste_ed[i] = 0
         else
             liste_ed[i] = 2*nb_arete/(nb_noeud*(nb_noeud-1))   # ed : edge_density
         end
@@ -211,7 +211,7 @@ function density_prefix(fichier, ordre_noeud, tri_noeud, informations_density)
             size_max_ed = i
         end
         
-        # 
+        # si on veut obtenir des informations au cours de la simulation
         if informations_density == 1
             if mod(i,10000) == 0
                 println("iter_density = ", i)
